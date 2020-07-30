@@ -6,7 +6,7 @@ import SearchPanel from './components/serach-panel';
 
 const App = () => {
 
-  const items = [{ label: 'Learn react 1', important: false, }, { label: 'Build awsome application', important: true,}]
+  const items = [{ label: 'Learn react 1', important: false, id: 1, }, { label: 'Build awsome application', important: true, id: 2,}]
 
   const isLoggedIn = true;
   const loginBox = <span>Log in please</span>;

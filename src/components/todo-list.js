@@ -11,8 +11,13 @@ const TodoList = ( { items = [] }) => {
 
   const elements = items.map( 
     //el => {  return (<li><TodoListItem label={el.label} important={el.important} ></TodoListItem></li>) }
-    el => { 
-      return (<li><TodoListItem {...el} ></TodoListItem></li>) 
+    ( {id, ...elProps} ) => { 
+
+      return (
+        <li key={id}>
+          <TodoListItem {...elProps} ></TodoListItem>
+          </li>
+      ) 
     }
   )
 
