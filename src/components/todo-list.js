@@ -1,16 +1,23 @@
 import React from 'react';
 import TodoListItem from './todo-list-item';
 
-const TodoList = () => {
-  const items = ['Learn react 1', 'Build awsome application']
+const TodoList = ( { items = [] }) => {
+  
+  //console.log(items[0])
+  // const aaa = {...items[0]};
+  // aaa.label = 'test';
+  // console.log(items[0]);
+  // console.log(aaa);
 
-  const itemProps = {test: 'test', test2: 1};
+  const elements = items.map( 
+    //el => {  return (<li><TodoListItem label={el.label} important={el.important} ></TodoListItem></li>) }
+    el => { 
+      return (<li><TodoListItem {...el} ></TodoListItem></li>) 
+    }
+  )
 
   return (
-    <ul>
-      <li><TodoListItem itemText={items[0]} otherProps={itemProps}></TodoListItem></li>
-      <li><TodoListItem itemText={items[1]} important ></TodoListItem></li>
-    </ul>
+    <ul>{elements}</ul>
   )
 }
 

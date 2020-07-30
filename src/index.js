@@ -6,6 +6,8 @@ import SearchPanel from './components/serach-panel';
 
 const App = () => {
 
+  const items = [{ label: 'Learn react 1', important: false, }, { label: 'Build awsome application', important: true,}]
+
   const isLoggedIn = true;
   const loginBox = <span>Log in please</span>;
   //const value = '<script>alert("test")</script>'
@@ -15,7 +17,7 @@ const App = () => {
       {isLoggedIn ? <span>{(new Date()).toISOString()}</span> : loginBox }
       <AppHeader />
       <SearchPanel />
-      <TodoList />
+      <TodoList items={items} />
     </div>
   )
 }

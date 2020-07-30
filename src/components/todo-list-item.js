@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TodoListItem = ( { itemText, important=false, ...others } ) => {
+const TodoListItem = ({ label, important=false, ...others } ) => {
 
   console.log(others);
 
@@ -9,7 +9,7 @@ const TodoListItem = ( { itemText, important=false, ...others } ) => {
   };
 
   return (
-    <span style={style}> { itemText } </span>
+    <span style={style}> {label } </span>
   )
 }
 
