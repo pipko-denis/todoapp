@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 const TodoList = () => {
+  const items = ['Learn react 1','Build awsome application']
   return (
     <ul>
-      <li>Learn react</li>
-      <li>Build awsome app</li>
+      <li>{items[0]}</li>
+      <li>{items[1]}</li>
     </ul>
   )
 }
@@ -19,8 +20,14 @@ const SearchPanel = () => {
 }
 
 const App = () => {
+
+  const isLoggedIn = true;
+  const loginBox = <span>Log in please</span>;
+
   return (
     <div>
+      
+      {isLoggedIn ? <span>{(new Date()).toISOString()}</span> : loginBox }
       <AppHeader />
       <SearchPanel />
       <TodoList />
