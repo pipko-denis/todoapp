@@ -1,24 +1,45 @@
-import React from 'react';
+import React, { Component} from 'react';
 import TodoListItem from '../todo-list-item';
 import './todo-list.css';
+import { render } from '@testing-library/react';
 
-const TodoList = ({ items = [] }) => {
+export default class TodoList extends Component {
 
-  const elements = items.map((item) => {
-    const { id, ...itemProps } = item;
+  constructor() {
+    super();
+    
+    //const { onDeleted } = this.props;
+
+    this.onDeleted = (id) => {
+      console.log('deleted in list', id);
+      this.props.onDeleted(id);
+      
+    }
+  }
+
+  render() {
+
+    //const items = [];
+    const { items = [], onDeleted } = this.props;
+
+    const elements = items.map((item) => {
+      const { id, ...itemProps } = item;
+
+        return (
+          <li key={id} className="list-group-item">
+            <TodoListItem {...itemProps}
+              onDeleted={ () => this.onDeleted(id) }
+            />
+          </li>
+        );
+    });
 
     return (
-      <li key={id} className="list-group-item">
-        <TodoListItem {...itemProps} />
-      </li>
+      <ul className="list-group todo-list">
+        {elements}
+      </ul>
     );
-  });
-
-  return (
-    <ul className="list-group todo-list">
-      {elements}
-    </ul>
-  );
+  };
 };
 
   //console.log(items[0])
@@ -43,4 +64,4 @@ const TodoList = ({ items = [] }) => {
 
 
 
-export default TodoList;
+//export default TodoList;

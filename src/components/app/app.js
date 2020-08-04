@@ -9,8 +9,8 @@ const App = () => {
 
   const items = [
     { label: 'Learn react 2', important: false, id: 1, }
-    , { label: 'Build awsome application', important: true, id: 2, }
-    , { label: 'Build awsome application', important: false, id: 2, }
+    , { label: 'Build awsome application 1', important: true, id: 2, }
+    , { label: 'Build awsome application 2', important: false, id: 3, }
   ]
 
   const isLoggedIn = true;
@@ -20,16 +20,38 @@ const App = () => {
   return (
     <div className="todo-app">
       {isLoggedIn ? <span>{(new Date()).toISOString()}</span> : loginBox}
-      <AppHeader className="app-header" />
+      <AppHeader className="app-header" toDo={0} done={3} />
       <div className="top-panel d-flex">
         <SearchPanel />
         <ItemStatusFilter />
       </div>
-      <TodoList items={items} />
+      <TodoList items={items}
+        onDeleted={(id) => { console.log('del in app id:',id)}}
+      />
     </div>
   )
 }
 
-//const el = ();
+// const App = () => {
+//   const [i, changeIt] = React.useState(0);
+// const inc = () => {
+//   return changeIt(i+1);
+// }
+//   const inc = () => changeIt(i + 1)
+//   const dec = () => changeIt(i - 1)
+//   const rand = () => changeIt(Math.floor(Math.random() * 100))
+
+//   return (
+//     <div>
+//       Hello {`${i}`}
+//       <br/>
+//       <button onClick={() => inc()}>inc</button>
+//       <button onClick={() => dec()}>dec</button>
+//       <button onClick={() => rand()}>random</button>
+//     </div>
+//   )
+// }
+
+// //const el = ();
 
 export default App;
