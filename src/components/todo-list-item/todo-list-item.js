@@ -11,31 +11,30 @@ export default class TodoListItem extends Component{
       important: false,
     };
 
-    this.onDeleteClick = () => {
-      console.log('delete click in item',this.props.label,this.state);
-      //this.props.onDeleted();
-    }
+    // this.onDeleteClick = () => {
+    //   console.log('delete click in item',this.props.label,this.state);
+    //   this.props.onDeleted();
+    // }
 
-    this.onLabelClick = () => {
-      //this.props.important = !this.props.important;
-      console.log(`done ${this.props.label}. Is it important: ${this.props.label}`);      
-      //console.log(this.classNames);
-      //this.setState({ done: ! this.state.done});
-      this.setState( (state) => {
-        return {
-          done : !state.done
-        }
-      } );
-    }
+    // this.onLabelClick = () => {
+    //   console.log(`done ${this.props.label}. Is it important: ${this.props.label}`);            
+    //   this.props.onToggleDone();
+    //   this.setState( (state) => {        
+    //     return {
+    //       done : !state.done,          
+    //     }
+    //   } );
+    // }
 
-    this.onImportantClick = () => {
-      //this.setState({ important: !this.state.important});
-      this.setState( (state) => {
-        return {
-          important: !state.important
-        }
-      });
-    }
+    // this.onImportantClick = () => {
+    //   //this.setState({ important: !this.state.important});
+    //   this.props.onToggleImportant();
+    //   this.setState( (state) => {        
+    //     return {
+    //       important: !state.important
+    //     }
+    //   });
+    // }
   }
 
 
@@ -44,8 +43,8 @@ export default class TodoListItem extends Component{
 
     //console.log(others);
 
-    const { label = '', onDeleted} = this.props;
-    const {done, important} = this.state;
+    const { label = '', onDeleted, onToggleDone, onToggleImportant, done, important} = this.props;
+    //const {done, important} = this.state;
 
     let classNames = 'todo-list-item';
 
@@ -61,7 +60,7 @@ export default class TodoListItem extends Component{
     if (important) {
       classNames += " important";
     }
-    const {onLabelClick, onImportantClick} = this
+    //const {} = this
     return (
       <span className={classNames} >
         <span
@@ -69,14 +68,14 @@ export default class TodoListItem extends Component{
           //style={style}
           //onClick={() => console.log(`done ${label}`)}
           //onClick={ this.onLabelClick.bind(this) }
-          onClick={onLabelClick}
+          onClick={onToggleDone}
           >
           {label}
         </span>
 
         <button type="button"
           className="btn btn-outline-success btn-sm float-right"
-          onClick={onImportantClick}
+          onClick={onToggleImportant}
           >
           <i className="fa fa-exclamation" />
           

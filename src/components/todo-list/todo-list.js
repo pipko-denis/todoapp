@@ -1,7 +1,6 @@
-import React, { Component} from 'react';
+import React, {Component} from 'react';
 import TodoListItem from '../todo-list-item';
 import './todo-list.css';
-import { render } from '@testing-library/react';
 
 export default class TodoList extends Component {
 
@@ -12,23 +11,32 @@ export default class TodoList extends Component {
 
     this.onDeleted = (id) => {
       console.log('deleted in list', id);
-      this.props.onDeleted(id);
-      
-    }
+      this.props.onDeleted(id);      
+    };
+    this.onToggleDone = (id) => {
+      console.log('onToggleDone list');
+      this.props.onToggleDone(id);
+    };
+    this.onToggleImportant = (id) => {
+      console.log('onToggleImportant list');
+      this.props.onToggleImportant(id);
+    };
   }
 
   render() {
 
     //const items = [];
-    const { items = [], onDeleted } = this.props;
+    const { items = [] } = this.props;
 
     const elements = items.map((item) => {
-      const { id, ...itemProps } = item;
+    const { id, ...itemProps } = item;
 
         return (
           <li key={id} className="list-group-item">
             <TodoListItem {...itemProps}
               onDeleted={ () => this.onDeleted(id) }
+              onToggleDone={ () => this.onToggleDone(id)}
+              onToggleImportant={() => this.onToggleImportant(id)}
             />
           </li>
         );
