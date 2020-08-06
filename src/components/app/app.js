@@ -12,17 +12,28 @@ export default class App extends Component {
     super();
     this.state = {
       items: [
-        { label: 'Learn react 2', important: false, id: 5, }
-        , { label: 'Build awsome application 1', important: true, id: 7, }
-        , { label: 'Build awsome application 2', important: false, id: 3, }
+          { label: 'Learn react 2', important: false, id: 5, done: false }
+        , { label: 'Build awsome application 1', important: true, id: 7, done: false}
+        , { label: 'Build awsome application 2', important: false, id: 3, done: false}
       ],
-      filter: null
+      filter: '',
+      filterStatus: 'all',
     }
 
     this.onFilterChanged = (value) => {
       this.setState( (state) => {
         return { filter: value}
       });
+    }
+
+    this.onFilterStatusChanged = (filterStatus) => {
+      console.log('onFilterStatusChanged app.js', filterStatus, this.state.filterStatus);
+      this.setState({ filterStatus});
+      // this.setState( (state) =>{
+      //     return {
+      //       filterStatus: value,
+      //     }
+      // })
     }
 
     this.onAddItem = (text) => {
@@ -76,6 +87,26 @@ export default class App extends Component {
       
     }
 
+    this.filterItems = () =>{
+      
+      let arr = null;
+
+      //console.log('items at the begining', this.state.items)
+      switch(this.state.filterStatus){
+        case 'all': { arr= this.state.items; break;}
+        case 'active': {
+            arr = this.state.items.filter((el) => { 
+              console.log(el.done, this.state.filterStatus)
+              return el.done == false
+            }); 
+            break; 
+        }
+        case 'done': {arr = this.state.items.filter((el) => { return el.done == true }); break;}
+      }
+      //console.log('filterItems', arr, this.state.filterStatus);
+      return arr;
+    }
+
   }
   
   
@@ -87,14 +118,13 @@ export default class App extends Component {
     //   , { label: 'Build awsome application 2', important: false, id: 3, }
     // ]
 
-    const {items, filter} = this.state;
+    const { items, filter, filterStatus } = this.state;
     const isLoggedIn = true;
     const loginBox = <span>Log in please</span>;
 
     const doneCnt = items.filter( (el) => el.done  ).length;
 
-    let doneCnt2 = 0;
-
+    // let doneCnt2 = 0;
     // this.state.items.map( (el) => {
     //   if (el.done) doneCnt2 ++;
     //   return null;
@@ -115,8 +145,13 @@ export default class App extends Component {
     // }
 
 
-    const itemsFiltered = ( (filter) ? items.filter((el) => { return el.label.indexOf(filter) > -1 }) : [...this.state.items] );
-    //console.log(itemsFiltered);
+    //const itemsFiltered = ( (filter) ? items.filter((el) => { return el.label.indexOf(filter) > -1 }) : this.state.items );
+    const filteredItems = this.filterItems();
+    //console.log(filteredItems);
+    const itemsFiltered = ((filter) ? filteredItems.filter((el) => { return el.label.toLowerCase().indexOf(filter.toLowerCase()) > -1 }) : filteredItems);
+    //console.log('itemsFiltered',itemsFiltered);
+    //const arr = this.filterItems()
+    //console.log(arr);
 
     return (
       <div className="todo-app">
@@ -126,14 +161,17 @@ export default class App extends Component {
           <SearchPanel 
             onFilterChanged={this.onFilterChanged}
           />
-          <ItemStatusFilter />
+          <ItemStatusFilter 
+            filterStatus={filterStatus}
+            onFilterStatusChanged={this.onFilterStatusChanged}
+          />
         </div>
         <TodoList items={itemsFiltered}
           onDeleted={this.onDeleted}
           onToggleDone={this.onToggleDone}
           onToggleImportant={this.onToggleImportant}
         />
-        <TodoAdd 
+        <TodoAdd           
           onAddItem={this.onAddItem}
         />
       </div>
